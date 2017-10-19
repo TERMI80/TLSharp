@@ -1,0 +1,35 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TLSharp;
+using TeleSharp.TL;
+using TLSharp.Core;
+namespace TLC
+{
+    class Program
+    {
+
+        static string phoneCodeHash;
+        static void Main(string[] args)
+        {
+
+            Run();
+        }
+      static  async void Run()
+        {
+            var store = new FakeSessionStore();
+            string Alert = "ciao";
+           TLUser user = null;
+            var client = new TelegramClient(117394, "b429bd4470c9b2bc24c9d128dbfa2a4a",store);
+            bool isConnect = await  client.ConnectAsync();
+            if (!client.IsUserAuthorized())            
+            {
+                phoneCodeHash = await client.SendCodeRequestAsync("39339");
+                Task.WaitAll();
+            }
+
+        }
+    }
+}
